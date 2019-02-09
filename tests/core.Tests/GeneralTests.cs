@@ -3,12 +3,12 @@ using Xunit;
 
 namespace core.Tests
 {
-    public class UnitTest1
+    public class GeneralTests
     {
         [Fact]
-        public void Test1()
+        public void AlwaysTrue()
         {
-
+            Assert.True(true);
         }
     }
 }
