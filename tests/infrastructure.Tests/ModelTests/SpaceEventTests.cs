@@ -13,9 +13,6 @@ namespace infrastructure.Tests.ModelTests
             var Now = DateTime.Now;
             var SE = new SpaceEvent() { Date = Now };
 
-            // Act
-
-
             // Assert
             Assert.Equal(Now.Year, SE.Year);
             Assert.Equal(Now.Month, SE.Month);
