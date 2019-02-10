@@ -49,7 +49,7 @@ namespace web
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection(); // Handled by nginx on the server
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
