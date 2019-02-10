@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using core.Interfaces;
+using MongoDB.Bson.Serialization.Attributes;
 
-namespace core
+namespace infrastructure.Models
 {
-    public class SpaceEvent
+    public class SpaceEvent : ISpaceEvent
     {
         public string Name { get; set; }
         public string Subtitle { get; set; }
@@ -12,38 +14,16 @@ namespace core
         public string URL { get; set; }
         public string Description { get; set; }
 
+        [BsonIgnore]
         public int Year { get { return Date.Year; } }
+        [BsonIgnore]
         public int Month { get { return Date.Month; } }
+        [BsonIgnore]
         public int Day { get { return Date.Day; } }
+        [BsonIgnore]
         public string GenericDate { get { return Date.ToString("yyyy-MM-dd"); } }
 
+        [BsonIgnore]
         public DateTime ConvenienceDate { get { var Result = new DateTime(DateTime.Now.Year, Date.Month, Date.Day, Date.Hour, Date.Minute, Date.Second); return Result; } }
-    }
-
-    public class SpaceEventComparer : IComparer<SpaceEvent>
-    {
-        public int Compare(SpaceEvent one, SpaceEvent two)
-        {
-            if (one == null)
-            {
-                if (two == null) { return 0; }
-                else { return -1; }
-            }
-            else
-            {
-                if (two == null) { return 1; }
-                else
-                {
-                    var Result = one.Date.CompareTo(two.Date);
-
-                    if (Result == 0)
-                    {
-                        Result = one.Name.CompareTo(two.Name);
-                    }
-
-                    return Result;
-                }
-            }
-        }
     }
 }
