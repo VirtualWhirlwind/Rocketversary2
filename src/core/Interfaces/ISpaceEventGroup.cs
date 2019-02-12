@@ -5,12 +5,10 @@ namespace core.Interfaces
     public interface ISpaceEventGroup
     {
         ISpaceEvent Previous { get; set; }
-        int PreviousCount { get; set; }
 
-        IEnumerable<ISpaceEvent> Current { get; set; }
-        int CurrentCount { get; set; }
+        List<ISpaceEvent> Current { get; set; }
+        int CurrentCount { get; }
 
         ISpaceEvent Next { get; set; }
-        int NextCount { get; set; }
     }
 }

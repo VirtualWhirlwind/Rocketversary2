@@ -31,10 +31,8 @@ namespace infrastructure.Models
         #region Convenience Properties
         [BsonIgnore]
         public int Year { get { return Date.Year; } }
-        [BsonIgnore]
-        public int Month { get { return Date.Month; } }
-        [BsonIgnore]
-        public int Day { get { return Date.Day; } }
+        public int Month { get { return Date.Month; } set { } }
+        public int Day { get { return Date.Day; } set { } }
         [BsonIgnore]
         public string GenericDate { get { return Date.ToString("yyyy-MM-dd"); } }
 

@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using infrastructure.DB;
 using infrastructure.Models;
@@ -26,7 +27,12 @@ namespace infrastructure.Tests.DbTests
         public void SaveSpaceEvent()
         {
             // Arrange
-            var SE = new SpaceEvent();
+            var SE = new SpaceEvent()
+            {
+                Name = "Test Event",
+                Country = "United States",
+                Date = DateTime.Now
+            };
             
             // Act
             DB.SaveSpaceEvent(SE);
