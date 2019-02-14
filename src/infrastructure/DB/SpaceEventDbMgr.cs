@@ -26,10 +26,14 @@ namespace infrastructure.DB
             var Result = new SpaceEventGroup();
 
             // Exact
+            Result.Current = Context.SpaceEvents.Find(s => s.Month == forDate.Month && s.Day == forDate.Day).ToList();
 
             // Next after Exact if needed
             if (Result.CurrentCount == 0)
             {
+                // Check for next
+
+                // If none, start from 1/1
                 
             }
 

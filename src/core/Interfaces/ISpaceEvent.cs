@@ -46,4 +46,32 @@ namespace core.Interfaces
             }
         }
     }
+
+    public class SpaceEventBasicComparer : IComparer<ISpaceEvent>
+    {
+        public int Compare(ISpaceEvent one, ISpaceEvent two)
+        {
+            if (one == null)
+            {
+                if (two == null) { return 0; }
+                else { return -1; }
+            }
+            else
+            {
+                if (two == null) { return 1; }
+                else
+                {
+                    var DateOne = one.Date;
+                    var DateTwo = new DateTime(DateOne.Year, two.Date.Month, two.Date.Day, two.Date.Hour, two.Date.Minute, two.Date.Second);
+
+                    var Result = DateOne.CompareTo(DateTwo);
+                    if (Result == 0)
+                    {
+                        Result = one.Name.CompareTo(two.Name);
+                    }
+                    return Result;
+                }
+            }
+        }
+    }
 }
