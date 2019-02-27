@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using core.Interfaces;
 using infrastructure.Models;
 using infrastructure.Support;
@@ -29,36 +30,36 @@ namespace infrastructure.DB
 
             // Exact Day
             var DayIndex = Utilities.DayIndex(forDate);
-            Result.Current = Context.SpaceEvents.Find(new BsonDocument("DayIndex", DayIndex)).ToList();
+            Result.Current = Context.SpaceEvents.AsQueryable().Where(s => s.DayIndex == DayIndex).ToList();
 
             // Next Day after Exact Day if needed
             if (Result.CurrentCount == 0)
             {
                 // Check for next
-                DayIndex = Context.SpaceEvents.Find<ISpaceEvent>(s => s.DayIndex > DayIndex).SortBy(s => s.DayIndex).Project(s => s.DayIndex).FirstOrDefault();
+                DayIndex = Context.SpaceEvents.AsQueryable().Where(s => s.DayIndex > DayIndex).OrderBy(s => s.DayIndex).Select(s => s.DayIndex).FirstOrDefault();
 
                 // If none, start from 1/1
                 if (DayIndex == 0)
                 {
-                    DayIndex = Context.SpaceEvents.Find<ISpaceEvent>(s => s.DayIndex > 0).SortBy(s => s.DayIndex).Project(s => s.DayIndex).FirstOrDefault();
+                    DayIndex = Context.SpaceEvents.AsQueryable().Where(s => s.DayIndex > 0).OrderBy(s => s.DayIndex).Select(s => s.DayIndex).FirstOrDefault();
                 }
 
                 // Grab Group
-                Result.Current = Context.SpaceEvents.Find<ISpaceEvent>(s => s.DayIndex == DayIndex).ToList();
+                Result.Current = Context.SpaceEvents.AsQueryable().Where(s => s.DayIndex == DayIndex).ToList();
             }
 
             // Previous
-            Result.Previous = Context.SpaceEvents.Find<ISpaceEvent>(s => s.DayIndex < DayIndex).SortByDescending(s => s.Date).FirstOrDefault();
+            Result.Previous = Context.SpaceEvents.AsQueryable().Where(s => s.DayIndex < DayIndex).OrderByDescending(s => s.Date).FirstOrDefault();
             if (Result.Previous == null)
             {
-                Result.Previous = Context.SpaceEvents.Find<ISpaceEvent>(s => s.DayIndex < 367).SortByDescending(s => s.Date).FirstOrDefault();
+                Result.Previous = Context.SpaceEvents.AsQueryable().Where(s => s.DayIndex < 367).OrderByDescending(s => s.Date).FirstOrDefault();
             }
 
             // Later
-            Result.Next = Context.SpaceEvents.Find<ISpaceEvent>(s => s.DayIndex > DayIndex).SortBy(s => s.Date).FirstOrDefault();
+            Result.Next = Context.SpaceEvents.AsQueryable().Where(s => s.DayIndex > DayIndex).OrderBy(s => s.Date).FirstOrDefault();
             if (Result.Next == null)
             {
-                Result.Next = Context.SpaceEvents.Find<ISpaceEvent>(s => s.DayIndex > 0).SortBy(s => s.Date).FirstOrDefault();
+                Result.Next = Context.SpaceEvents.AsQueryable().Where(s => s.DayIndex > 0).OrderBy(s => s.Date).FirstOrDefault();
             }
 
             return Result;
