@@ -12,6 +12,7 @@ namespace core.Interfaces
         DateTime Date { get; set; }
         string URL { get; set; }
         string Description { get; set; }
+        int DayIndex{ get; set; }
 
         int Year { get; }
         int Month { get; }

@@ -11,6 +11,7 @@ namespace infrastructure.Models
     {
         #region Fields
         protected string __id = ObjectId.GenerateNewId().ToString();
+        protected int _DayIndex = 0;
         #endregion
 
         #region Properties
@@ -26,6 +27,18 @@ namespace infrastructure.Models
         public DateTime Date { get; set; }
         public string URL { get; set; }
         public string Description { get; set; }
+        public int DayIndex
+        {
+            get
+            {
+                if (_DayIndex < 1 || _DayIndex > 366)
+                {
+                    _DayIndex = (new DateTime(2020, Date.Month, Date.Day)).DayOfYear;
+                }
+                return _DayIndex;
+            }
+            set { _DayIndex = value; }
+        }
         #endregion
 
         #region Convenience Properties
