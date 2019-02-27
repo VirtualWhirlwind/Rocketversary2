@@ -3,19 +3,19 @@ using core.Interfaces;
 
 namespace infrastructure.Models
 {
-    public class SpaceEventGroup
+    public class SpaceEventGroup : ISpaceEventGroup
     {
         #region Fields
-        protected List<SpaceEvent> _Current = new List<SpaceEvent>();
+        protected List<ISpaceEvent> _Current = new List<ISpaceEvent>();
         #endregion
 
         #region Properties
-        public SpaceEvent Previous { get; set; }
+        public ISpaceEvent Previous { get; set; }
 
-        public List<SpaceEvent> Current
+        public List<ISpaceEvent> Current
         {
             get { return _Current; }
-            set { _Current = value ?? new List<SpaceEvent>(); }
+            set { _Current = value ?? new List<ISpaceEvent>(); }
         }
         public int CurrentCount
         {

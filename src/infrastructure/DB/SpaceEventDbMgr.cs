@@ -11,14 +11,14 @@ namespace infrastructure.DB
     public partial interface IDbMgr
     {
         void SaveSpaceEvent(SpaceEvent save);
-        SpaceEvent GetSpaceEventById(string id);
+        ISpaceEvent GetSpaceEventById(string id);
         SpaceEventGroup GetGroupForDate(DateTime forDate);
     }
     public partial class DbMgr : IDbMgr
     {
         public void SaveSpaceEvent(SpaceEvent save) => Context.SpaceEvents.ReplaceOne(Filter(save._id), save, Options);
 
-        public SpaceEvent GetSpaceEventById(string id)
+        public ISpaceEvent GetSpaceEventById(string id)
         {
             var Result = Context.SpaceEvents.Find(Filter(id)).FirstOrDefault();
             return Result;
@@ -30,7 +30,7 @@ namespace infrastructure.DB
 
             // Exact Day
             var DayIndex = Utilities.DayIndex(forDate);
-            Result.Current = Context.SpaceEvents.AsQueryable().Where(s => s.DayIndex == DayIndex).ToList();
+            Result.Current = Context.SpaceEvents.AsQueryable().Where(s => s.DayIndex == DayIndex).ToList<ISpaceEvent>();
 
             // Next Day after Exact Day if needed
             if (Result.CurrentCount == 0)
@@ -45,7 +45,7 @@ namespace infrastructure.DB
                 }
 
                 // Grab Group
-                Result.Current = Context.SpaceEvents.AsQueryable().Where(s => s.DayIndex == DayIndex).ToList();
+                Result.Current = Context.SpaceEvents.AsQueryable().Where(s => s.DayIndex == DayIndex).ToList<ISpaceEvent>();
             }
 
             // Previous
