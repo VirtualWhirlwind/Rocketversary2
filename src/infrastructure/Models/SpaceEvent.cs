@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using core.Interfaces;
+using infrastructure.Support;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
@@ -33,7 +34,7 @@ namespace infrastructure.Models
             {
                 if (_DayIndex < 1 || _DayIndex > 366)
                 {
-                    _DayIndex = (new DateTime(2020, Date.Month, Date.Day)).DayOfYear;
+                    _DayIndex = Utilities.DayIndex(Date);
                 }
                 return _DayIndex;
             }

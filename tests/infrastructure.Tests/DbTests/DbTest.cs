@@ -40,5 +40,47 @@ namespace infrastructure.Tests.DbTests
             // Assert
             
         }
+
+        [Fact]
+        public void SpaceEventGroup()
+        {
+            //Given
+            var SE1 = new SpaceEvent()
+            {
+                Name = "Test Event 1",
+                Country = "United States",
+                Date = new DateTime(1969, 1, 1)
+            };
+            var SE2 = new SpaceEvent()
+            {
+                Name = "Test Event 2",
+                Country = "United States",
+                Date = new DateTime(1980, 5, 1)
+            };
+            var SE2_2 = new SpaceEvent()
+            {
+                Name = "Test Event 2_2",
+                Country = "United States",
+                Date = new DateTime(1981, 5, 1)
+            };
+            var SE3 = new SpaceEvent()
+            {
+                Name = "Test Event 3",
+                Country = "United States",
+                Date = new DateTime(2000, 12, 1)
+            };
+            DB.SaveSpaceEvent(SE1);
+            DB.SaveSpaceEvent(SE2);
+            DB.SaveSpaceEvent(SE2_2);
+            DB.SaveSpaceEvent(SE3);
+        
+            //When
+            var SEGroup = DB.GetGroupForDate(new DateTime(2019, 5, 1));
+        
+            //Then
+            Assert.True(SEGroup.CurrentCount > 1);
+            Assert.NotNull(SEGroup.Previous);
+            Assert.NotNull(SEGroup.Next);
+        }
     }
 }
