@@ -12,7 +12,7 @@ namespace infrastructure.Tests.DbTests
         public IConfigurationRoot Configuration { get; }
         // public string DBConnection { get { return Configuration["ConnectionStrings:Main"]; } }
         public string DBConnection { get { return "mongodb://localhost:27017/rocketversary_tests"; } }
-        public DbMgr DB { get; set; }
+        public IDbMgr DB { get; set; }
 
         public DbTest()
         {

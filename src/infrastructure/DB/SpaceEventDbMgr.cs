@@ -12,7 +12,7 @@ namespace infrastructure.DB
     {
         void SaveSpaceEvent(SpaceEvent save);
         ISpaceEvent GetSpaceEventById(string id);
-        SpaceEventGroup GetGroupForDate(DateTime forDate);
+        ISpaceEventGroup GetGroupForDate(DateTime forDate);
     }
     public partial class DbMgr : IDbMgr
     {
@@ -24,7 +24,7 @@ namespace infrastructure.DB
             return Result;
         }
 
-        public SpaceEventGroup GetGroupForDate(DateTime forDate)
+        public ISpaceEventGroup GetGroupForDate(DateTime forDate)
         {
             var Result = new SpaceEventGroup();
 
