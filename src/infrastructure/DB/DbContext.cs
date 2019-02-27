@@ -8,7 +8,7 @@ namespace infrastructure.DB
     public class DbContext
     {
         #region DbSets
-        public IMongoCollection<ISpaceEvent> SpaceEvents { get; set; }
+        public IMongoCollection<SpaceEvent> SpaceEvents { get; set; }
         #endregion
 
         #region Properties
@@ -38,7 +38,7 @@ namespace infrastructure.DB
             DB = Client.GetDatabase(new MongoUrl(Server).DatabaseName);
 
             // Collections Here
-            SpaceEvents = DB.GetCollection<ISpaceEvent>(typeof(SpaceEvent).Name);
+            SpaceEvents = DB.GetCollection<SpaceEvent>(typeof(SpaceEvent).Name);
         }
         #endregion
     }

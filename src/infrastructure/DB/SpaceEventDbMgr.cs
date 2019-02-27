@@ -10,21 +10,21 @@ namespace infrastructure.DB
 {
     public partial interface IDbMgr
     {
-        void SaveSpaceEvent(ISpaceEvent save);
-        ISpaceEvent GetSpaceEventById(string id);
-        ISpaceEventGroup GetGroupForDate(DateTime forDate);
+        void SaveSpaceEvent(SpaceEvent save);
+        SpaceEvent GetSpaceEventById(string id);
+        SpaceEventGroup GetGroupForDate(DateTime forDate);
     }
     public partial class DbMgr : IDbMgr
     {
-        public void SaveSpaceEvent(ISpaceEvent save) => Context.SpaceEvents.ReplaceOne(Filter(save._id), save, Options);
+        public void SaveSpaceEvent(SpaceEvent save) => Context.SpaceEvents.ReplaceOne(Filter(save._id), save, Options);
 
-        public ISpaceEvent GetSpaceEventById(string id)
+        public SpaceEvent GetSpaceEventById(string id)
         {
             var Result = Context.SpaceEvents.Find(Filter(id)).FirstOrDefault();
             return Result;
         }
 
-        public ISpaceEventGroup GetGroupForDate(DateTime forDate)
+        public SpaceEventGroup GetGroupForDate(DateTime forDate)
         {
             var Result = new SpaceEventGroup();
 
