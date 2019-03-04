@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
@@ -23,6 +24,11 @@ namespace infrastructure.DB
         public DbMgr(DbContext context)
         {
             Context = context;
+        }
+
+        public DbMgr(IConfiguration config)
+        {
+            Context = new DbContext(config["ConnectionStrings:Main"]);
         }
         #endregion
 
