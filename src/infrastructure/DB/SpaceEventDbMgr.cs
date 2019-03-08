@@ -16,7 +16,7 @@ namespace infrastructure.DB
     }
     public partial class DbMgr : IDbMgr
     {
-        public void SaveSpaceEvent(SpaceEvent save) => Context.SpaceEvents.ReplaceOne(Filter(save._id), save, Options);
+        public void SaveSpaceEvent(SpaceEvent save) => Context.SpaceEvents.ReplaceOne(Filter(save._id.ToString()), save, Options);
 
         public ISpaceEvent GetSpaceEventById(string id)
         {

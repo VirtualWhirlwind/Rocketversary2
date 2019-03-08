@@ -11,13 +11,13 @@ namespace infrastructure.Models
     public class SpaceEvent : ISpaceEvent
     {
         #region Fields
-        protected string __id = ObjectId.GenerateNewId().ToString();
+        protected ObjectId __id = ObjectId.GenerateNewId();
         protected int _DayIndex = 0;
         #endregion
 
         #region Properties
         [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
-        public string _id
+        public ObjectId _id
         {
             get { return __id; }
             set { __id = value; }

@@ -5,7 +5,7 @@ namespace core.Interfaces
 {
     public interface ISpaceEvent
     {
-        string _id { get; set; }
+        //string _id { get; set; }
         string Name { get; set; }
         string Subtitle { get; set; }
         string Country { get; set; }
